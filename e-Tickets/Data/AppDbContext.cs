@@ -14,6 +14,7 @@ namespace e_Tickets.Data
         public DbSet<ActorMovie> ActorsMovies { get; set; }
         public DbSet<Cinema> Cinemas { get; set; }
         public DbSet<Producer> Producers { get; set; }
+        public DbSet<User> Users { get; set; }
 
     }
 }

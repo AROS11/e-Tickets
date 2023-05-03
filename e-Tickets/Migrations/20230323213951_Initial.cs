@@ -9,8 +9,10 @@ namespace e_Tickets.Migrations
     public partial class Initial : Migration
     {
         /// <inheritdoc />
+        
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
             migrationBuilder.CreateTable(
                 name: "Actors",
                 columns: table => new
@@ -114,6 +116,20 @@ namespace e_Tickets.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            migrationBuilder.CreateTable(
+           name: "Users",
+            columns: table => new
+            {
+                Id = table.Column<int>(nullable: false)
+               .Annotation("SqlServer:Identity", "1, 1"),
+                Emri = table.Column<string>(nullable: true),
+                Mbiemri = table.Column<string>(nullable: true),
+                Username = table.Column<string>(nullable: true)
+            },
+            constraints: table =>
+            {
+                table.PrimaryKey("PK_Users", x => x.Id);
+            });
 
             migrationBuilder.CreateIndex(
                 name: "IX_ActorsMovies_ActorId",
@@ -139,6 +155,8 @@ namespace e_Tickets.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+
+
             migrationBuilder.DropTable(
                 name: "ActorsMovies");
 
@@ -153,6 +171,9 @@ namespace e_Tickets.Migrations
 
             migrationBuilder.DropTable(
                 name: "Producers");
+            
+            migrationBuilder.DropTable(
+             name: "Users");
         }
     }
 }

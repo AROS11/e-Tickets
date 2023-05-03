@@ -35,6 +35,9 @@ namespace e_Tickets
                 pattern: "{controller=Home}/{action=Index}/{id?}");
 
             app.Run();
+
+            //Seed database
+            AppDbInitializer.Seed(app);
         }
     }
 }
