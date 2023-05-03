@@ -44,7 +44,7 @@ namespace e_Tickets.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Actors", (string)null);
+                    b.ToTable("Actors");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.ActorMovie", b =>
@@ -67,7 +67,7 @@ namespace e_Tickets.Migrations
 
                     b.HasIndex("MovieId1");
 
-                    b.ToTable("ActorsMovies", (string)null);
+                    b.ToTable("ActorsMovies");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Cinema", b =>
@@ -92,7 +92,7 @@ namespace e_Tickets.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cinemas", (string)null);
+                    b.ToTable("Cinemas");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Movie", b =>
@@ -139,7 +139,7 @@ namespace e_Tickets.Migrations
 
                     b.HasIndex("ProducerId");
 
-                    b.ToTable("Movies", (string)null);
+                    b.ToTable("Movies");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Producer", b =>
@@ -164,7 +164,32 @@ namespace e_Tickets.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Producers", (string)null);
+                    b.ToTable("Producers");
+                });
+
+            modelBuilder.Entity("e_Tickets.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Emri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mbiemri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.ActorMovie", b =>
@@ -175,15 +200,13 @@ namespace e_Tickets.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e_Tickets.Models.Movie", "Movie")
+                    b.HasOne("e_Tickets.Models.Movie", null)
                         .WithMany("ActorsMovies")
                         .HasForeignKey("MovieId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Actor");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Movie", b =>
