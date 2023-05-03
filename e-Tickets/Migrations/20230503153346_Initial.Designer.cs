@@ -12,7 +12,7 @@ using e_Tickets.Data;
 namespace e_Tickets.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230323213951_Initial")]
+    [Migration("20230503153346_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -170,6 +170,31 @@ namespace e_Tickets.Migrations
                     b.ToTable("Producers");
                 });
 
+            modelBuilder.Entity("e_Tickets.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Emri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Mbiemri")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("e_Tickets.Models.ActorMovie", b =>
                 {
                     b.HasOne("e_Tickets.Models.Actor", "Actor")
@@ -178,15 +203,13 @@ namespace e_Tickets.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e_Tickets.Models.Movie", "Movie")
+                    b.HasOne("e_Tickets.Models.Movie", null)
                         .WithMany("ActorsMovies")
                         .HasForeignKey("MovieId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Actor");
-
-                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Movie", b =>
