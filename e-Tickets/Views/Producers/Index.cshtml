@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Actor>
+﻿@model IEnumerable<Producer>
 
 @{
-    ViewData["Title"] = "List of Actors";
+    ViewData["Title"] = "List of Producers";
 }
 
 <div class="row">
@@ -40,14 +40,11 @@
                                 <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Delete </a>
                             </td>
                         }
-
                     </tr>
                 }
             </tbody>
-
         </table>
-
     </div>
 </div>
 
-@await Html.PartialAsync("_CreateItem", "Actors")  
+@await Html.PartialAsync("_CreateItem", "Producers") 
