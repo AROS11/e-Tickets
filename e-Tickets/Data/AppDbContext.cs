@@ -9,6 +9,32 @@ namespace e_Tickets.Data
         {
             
         }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<ActorMovie>()
+        //        .HasKey(am => new { am.MovieId, am.ActorId });
+        //}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+
+            modelBuilder.Entity<ActorMovie>()
+                .HasKey(am => new { am.MovieId, am.ActorId });
+
+            modelBuilder.Entity<ActorMovie>().HasKey(am => new
+            {
+                am.ActorId,
+                am.MovieId
+            });
+
+            modelBuilder.Entity<ActorMovie>().HasOne(m => m.Movie).WithMany(am => am.ActorsMovies).HasForeignKey(m => m.MovieId);
+            modelBuilder.Entity<ActorMovie>().HasOne(m => m.Actor).WithMany(am => am.ActorsMovies).HasForeignKey(m => m.ActorId);
+
+
+            base.OnModelCreating(modelBuilder);
+        }
+
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<ActorMovie> ActorsMovies { get; set; }

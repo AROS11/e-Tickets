@@ -13,6 +13,7 @@
                     <div class="col-md-12">
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
+                                
                                 <h5 class="card-title">
                                     @item.Name
                                     @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
@@ -29,7 +30,7 @@
                     <div class="col-md-6">
                         <div class="card-body">
                             <p class="card-text">@item.Description</p>
-                            <p class="card-text"><b>Cinema: </b>@item.Cinema.Name</p>
+                            <p class="card-text"><b>Cinema: </b>@item.Name</p>
                             <p class="card-text"><b>Category: </b>@item.MovieCategory</p>
                             <p class="card-text"><b>Start Date: </b>@item.StartDate.ToString("dd MMM yy")</p>
                             <p class="card-text"><b>End Date: </b>@item.EndDate.ToString("dd MMM yy")</p>
@@ -72,4 +73,4 @@
     }
 </div>
 
-@await Html.PartialAsync("_CreateItem", "Movies") 
+@*@await Html.PartialAsync("_CreateItem", "Movies") *@

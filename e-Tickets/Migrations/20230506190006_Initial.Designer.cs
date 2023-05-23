@@ -12,7 +12,7 @@ using e_Tickets.Data;
 namespace e_Tickets.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230503153346_Initial")]
+    [Migration("20230506190006_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -53,22 +53,14 @@ namespace e_Tickets.Migrations
             modelBuilder.Entity("e_Tickets.Models.ActorMovie", b =>
                 {
                     b.Property<int>("MovieId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovieId"));
 
                     b.Property<int>("ActorId")
                         .HasColumnType("int");
 
-                    b.Property<int>("MovieId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("MovieId");
+                    b.HasKey("MovieId", "ActorId");
 
                     b.HasIndex("ActorId");
-
-                    b.HasIndex("MovieId1");
 
                     b.ToTable("ActorsMovies");
                 });
@@ -203,13 +195,15 @@ namespace e_Tickets.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("e_Tickets.Models.Movie", null)
+                    b.HasOne("e_Tickets.Models.Movie", "Movie")
                         .WithMany("ActorsMovies")
-                        .HasForeignKey("MovieId1")
+                        .HasForeignKey("MovieId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Actor");
+
+                    b.Navigation("Movie");
                 });
 
             modelBuilder.Entity("e_Tickets.Models.Movie", b =>

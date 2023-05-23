@@ -1,74 +1,63 @@
-﻿using eTickets.Data;
-using eTickets.Data.Services;
-using eTickets.Data.Static;
-using eTickets.Models;
+﻿using e_Tickets.Data;
+using e_Tickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ZendeskApi_v2.Models.Constants;
 
 namespace eTickets.Controllers
 {
     [Authorize(Roles = UserRoles.Admin)]
     public class ProducersController : Controller
     {
-        private readonly IProducersService _service;
+        private readonly AppDbContext _dbContext;
 
-        public ProducersController(IProducersService service)
+        public ProducersController(AppDbContext dbcontext)
         {
-            _service = service;
+            _dbContext = dbcontext;
         }
 
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var allProducers = await _service.GetAllAsync();
+            var allProducers =  _dbContext.Producers.ToList();
             return View(allProducers);
         }
 
         //GET: producers/details/1
         [AllowAnonymous]
-        public async Task<IActionResult> Details(int id)
+        public IActionResult Details(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails =  _dbContext.Producers.Find(id);
             if (producerDetails == null) return View("NotFound");
             return View(producerDetails);
         }
 
-        //GET: producers/create
-        public IActionResult Create()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> Create([Bind("ProfilePictureURL,FullName,Bio")] Producer producer)
         {
             if (!ModelState.IsValid) return View(producer);
 
-            await _service.AddAsync(producer);
+            await _dbContext.AddAsync(producer);
             return RedirectToAction(nameof(Index));
         }
 
         //GET: producers/edit/1
-        public async Task<IActionResult> Edit(int id)
+        public IActionResult Edit(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails =  _dbContext.Producers.Find(id);
             if (producerDetails == null) return View("NotFound");
             return View(producerDetails);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
+        public IActionResult Edit(int id, [Bind("Id,ProfilePictureURL,FullName,Bio")] Producer producer)
         {
             if (!ModelState.IsValid) return View(producer);
 
             if (id == producer.Id)
             {
-                await _service.UpdateAsync(id, producer);
+                _dbContext.Producers.Update(producer);
                 return RedirectToAction(nameof(Index));
             }
             return View(producer);
@@ -77,18 +66,18 @@ namespace eTickets.Controllers
         //GET: producers/delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails =  _dbContext.Producers.Find(id);
             if (producerDetails == null) return View("NotFound");
             return View(producerDetails);
         }
 
         [HttpPost, ActionName("Delete")]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public IActionResult DeleteConfirmed(int id)
         {
-            var producerDetails = await _service.GetByIdAsync(id);
+            var producerDetails =  _dbContext.Producers.Find(id);
             if (producerDetails == null) return View("NotFound");
-
-            await _service.DeleteAsync(id);
+            Producer producer = new Producer ();
+            _dbContext.Producers.Remove(producerDetails);
             return RedirectToAction(nameof(Index));
         }
     }
