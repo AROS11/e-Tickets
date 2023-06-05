@@ -1,4 +1,5 @@
 ﻿using e_Tickets.Models;
+using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_Tickets.Data
@@ -35,6 +36,11 @@ namespace e_Tickets.Data
             base.OnModelCreating(modelBuilder);
         }
 
+        internal Task AddASync(Actor actor)
+        {
+            throw new NotImplementedException();
+        }
+
         public DbSet<Actor> Actors { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<ActorMovie> ActorsMovies { get; set; }
@@ -42,5 +48,10 @@ namespace e_Tickets.Data
         public DbSet<Producer> Producers { get; set; }
         public DbSet<User> Users { get; set; }
 
+
+        //Order related tables
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+        public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 using e_Tickets.Data;
+using e_Tickets.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_Tickets
@@ -12,8 +13,10 @@ namespace e_Tickets
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-            //Seed database
-            //builder.Services.AddScoped<IMoviesService, MoviesService>();
+           
+            
+            //Service Configurations
+            builder.Services.AddScoped<IActorsService, ActorsService>();
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -34,6 +37,7 @@ namespace e_Tickets
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Movies}/{action=Index}/{id?}");
+            //Seed database
             AppDbInitializer.Seed(app);
 
             app.Run();
