@@ -53,5 +53,7 @@ namespace e_Tickets.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItems { get; set; }
+        public object Actors_Movies { get; internal set; }
+        public IEnumerable<object> Actors_Movie { get; internal set; }
     }
 }
