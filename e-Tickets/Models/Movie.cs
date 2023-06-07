@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using e_Tickets.Models.Enums;
-using e_Tickets.Data.Base;
 using eTickets.Data.Base;
 
 namespace e_Tickets.Models

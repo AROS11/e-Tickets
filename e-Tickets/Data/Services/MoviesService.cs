@@ -4,10 +4,7 @@ using eTickets.Data.Base;
 using eTickets.Data.ViewModels;
 using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace eTickets.Data.Services
 {
@@ -91,7 +88,6 @@ namespace eTickets.Data.Services
             }
 
             //Remove existing actors
-            
             var existingActorsDb = _context.Actors_Movies.Where(n => n.MovieId == data.Id).ToList();
             _context.Actors_Movies.RemoveRange(existingActorsDb);
             await _context.SaveChangesAsync();

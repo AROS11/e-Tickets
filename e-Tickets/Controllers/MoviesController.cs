@@ -1,17 +1,9 @@
-﻿using eTickets.Data;
-using eTickets.Data.Services;
-using eTickets.Data.Static;
+﻿using eTickets.Data.Services;
 using eTickets.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using ZendeskApi_v2.Models.Constants;
-using NewMovieVM = eTickets.Models.NewMovieVM;
 
 namespace eTickets.Controllers
 {
@@ -103,7 +95,7 @@ namespace eTickets.Controllers
                 StartDate = movieDetails.StartDate,
                 EndDate = movieDetails.EndDate,
                 ImageURL = movieDetails.ImageURL,
-                MovieCategory = (MovieCategory)movieDetails.MovieCategory,
+                MovieCategory = (Data.MovieCategory)movieDetails.MovieCategory,
                 CinemaId = movieDetails.CinemaId,
                 ProducerId = movieDetails.ProducerId,
                 ActorIds = movieDetails.Actors_Movies.Select(n => n.ActorId).ToList(),
