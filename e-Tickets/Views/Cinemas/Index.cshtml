@@ -26,6 +26,7 @@
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
+                        <a href="c:\users\admin\source\repos\lab1\e-tickets\views\cinemas\index.cshtml">c:\users\admin\source\repos\lab1\e-tickets\views\cinemas\index.cshtml</a>
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
@@ -42,4 +43,4 @@
 
     </div>
 </div>
-
+@await Html.PartialAsync("_CreateItem", "Cinemas") 

@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using e_Tickets.Models.Enums;
+using eTickets.Data.Base;
 
 namespace e_Tickets.Models
 {
     public class Movie:IEntityBase
     {
+        internal object Actors_Movies;
+
         [Key]
         public int Id { get; set; }
 

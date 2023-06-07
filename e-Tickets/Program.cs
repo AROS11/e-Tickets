@@ -1,12 +1,16 @@
 using e_Tickets.Data;
 using e_Tickets.Data.Services;
+using eTickets.Data.Cart;
+using eTickets.Data.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace e_Tickets
 {
     public class Program
     {
-        public static void Main(string[] args)
+        private static object services;
+
+        public static void Main(string[] args, object services)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +22,14 @@ namespace e_Tickets
             //Service Configurations
             builder.Services.AddScoped<IActorsService, ActorsService>();
             var app = builder.Build();
+            services.AddScoped<IMoviesService, MoviesService>();
+            services.AddScoped<IOrdersService, OrdersService>();
 
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped(sc => ShoppingCart.GetShoppingCart(sc));
+     
+
+            services.AddSession();
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -31,6 +42,7 @@ namespace e_Tickets
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
             //app.MapRazorPages();
